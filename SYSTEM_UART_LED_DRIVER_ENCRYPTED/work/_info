@@ -1,0 +1,259 @@
+m255
+K4
+z2
+Z0 !s99 nomlopt
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+!s11f vlog 2021.2 2021.04, Apr 14 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 dE:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER
+T_opt
+!s110 1674498882
+V_=6eS54Ak`D9I2_`OQiGX1
+04 15 4 work baud_controller fast 0
+04 18 4 work FourDigitLEDdriver fast 0
+04 10 4 work LEDdecoder fast 0
+04 15 4 work uart_encryption fast 0
+Z2 04 25 4 work UART_LED_DRIVER_System_TB fast 0
+04 13 4 work UART_PChecker fast 0
+04 13 4 work uart_receiver fast 0
+04 16 4 work uart_transmitter fast 0
+=1-b42e9906e99e-63ced341-2f9-914
+!s124 OEM10U25 
+Z3 o-quiet -auto_acc_if_foreign -work work +acc
+Z4 tCvgOpt 0
+n@_opt
+Z5 OL;O;2021.2;73
+R1
+T_opt1
+!s110 1674498479
+V6aW>n>^A;?SdQ@LTzg15h3
+R2
+=1-b42e9906e99e-63ced1af-26a-26d4
+Z6 !s124 OEM10U11 
+o-quiet -auto_acc_if_foreign -work work
+R4
+n@_opt1
+R5
+R1
+T_opt2
+!s110 1674498505
+VHg1UckRDmADYcomGPUKMK0
+R2
+=1-b42e9906e99e-63ced1c8-36a-2ee8
+R6
+R3
+R4
+n@_opt2
+R5
+R1
+vbaud_controller
+Z7 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z8 !s110 1674858552
+!i10b 1
+!s100 V9K15f0c3^o>HB]iT8]Ve0
+IgBRa^>d@GjR4HU73iC2:e3
+S1
+Z9 dE:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED
+w1673811510
+8UART_Baud_Controller.v
+FUART_Baud_Controller.v
+!i122 151
+L0 26 122
+Z10 VDg1SIo80bB@j0V0VzS_@n1
+Z11 OL;L;2021.2;73
+r1
+!s85 0
+31
+Z12 !s108 1674858552.000000
+!s107 LED_Decoder.v|LED_Driver.v|UART_Receiver.v|UART_Encryption.v|UART_Baud_Controller.v|UART_Parity_Checker.v|UART_Transmitter.v|E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v|
+Z13 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v|
+!i113 0
+Z14 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R4
+vFourDigitLEDdriver
+R7
+R8
+!i10b 1
+!s100 cEF4O0S6kzTTlm6G0FM=33
+IHmZ]e[814ejATPHgz3PY62
+S1
+R9
+w1673878456
+8LED_Driver.v
+FLED_Driver.v
+!i122 151
+L0 4 195
+R10
+R11
+r1
+!s85 0
+31
+R12
+Z15 !s107 LED_Decoder.v|LED_Driver.v|UART_Receiver.v|UART_Encryption.v|UART_Baud_Controller.v|UART_Parity_Checker.v|UART_Transmitter.v|E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v|
+R13
+!i113 0
+R14
+R4
+n@four@digit@l@e@ddriver
+vLEDdecoder
+R7
+R8
+!i10b 1
+!s100 XmnbE0WEXVHC<i5W3fe_N1
+IEV9HD7Xbh=3@^EKj_c7F?3
+S1
+R9
+w1673811476
+8LED_Decoder.v
+FLED_Decoder.v
+!i122 151
+L0 5 27
+R10
+R11
+r1
+!s85 0
+31
+R12
+R15
+R13
+!i113 0
+R14
+R4
+n@l@e@ddecoder
+vuart_encryption
+R7
+R8
+!i10b 1
+!s100 bTQC:]Lz>b`ckXnD[n9XB2
+I2B4IBLJYFiZgD^]:EQ?FJ3
+S1
+R9
+w1673876607
+8UART_Encryption.v
+FUART_Encryption.v
+!i122 151
+L0 3 21
+R10
+R11
+r1
+!s85 0
+31
+R12
+R15
+R13
+!i113 0
+R14
+R4
+vUART_LED_DRIVER_System_TB
+R7
+R8
+!i10b 1
+!s100 adWPj?gPcW[l?dGe:VYO10
+IaQ:j]obMzjGeQO;lXMA>[2
+S1
+R9
+w1673879079
+8E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v
+FE:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v
+!i122 151
+L0 6 73
+R10
+R11
+r1
+!s85 0
+31
+R12
+R15
+R13
+!i113 0
+R14
+R4
+n@u@a@r@t_@l@e@d_@d@r@i@v@e@r_@system_@t@b
+vUART_PChecker
+R7
+R8
+!i10b 1
+!s100 >jTW]1nzTM>=L5ST3lkm`1
+I]e^D6ZURhB;J^jU]^Hzef0
+S1
+R9
+w1673811561
+8UART_Parity_Checker.v
+FUART_Parity_Checker.v
+!i122 151
+L0 3 22
+R10
+R11
+r1
+!s85 0
+31
+R12
+R15
+R13
+!i113 0
+R14
+R4
+n@u@a@r@t_@p@checker
+vuart_receiver
+R7
+R8
+!i10b 1
+!s100 AJEQngIV13LoR;=5YoNWz3
+I?<UQgRTn@Z`I_OK8_`Be<2
+S1
+R9
+w1674498458
+8UART_Receiver.v
+FUART_Receiver.v
+!i122 151
+L0 6 322
+R10
+R11
+r1
+!s85 0
+31
+R12
+R15
+R13
+!i113 0
+R14
+R4
+vuart_transmitter
+R7
+R8
+!i10b 1
+!s100 FSh`LKmMY=hh6z3XOQ@Ki2
+IneNSZl>6^dh[_F0SH_D9e3
+S1
+R9
+w1674229923
+8UART_Transmitter.v
+FUART_Transmitter.v
+!i122 151
+L0 6 209
+R10
+R11
+r1
+!s85 0
+31
+R12
+R15
+R13
+!i113 0
+R14
+R4

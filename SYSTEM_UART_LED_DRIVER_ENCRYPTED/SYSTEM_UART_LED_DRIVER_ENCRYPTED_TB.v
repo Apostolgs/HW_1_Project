@@ -1,0 +1,78 @@
+`timescale 1ns/1ps
+`include "UART_Transmitter.v"
+`include "UART_Receiver.v"
+`include "LED_Driver.v"
+
+module UART_LED_DRIVER_System_TB;
+	reg clk_TB , reset_TB ;
+	reg [2:0] BAUD_SEL_TB ;
+	//----------------//
+	reg [7:0] Tx_DATA_TB ;
+	reg TX_EN_TB , TX_WR_TB ;
+	wire TxD_TB ;
+	wire Tx_BUSY_TB ;
+	//----------------//
+	reg RX_EN_TB ;
+	wire [7:0] Rx_DATA_TB ;
+	wire RX_FERROR_TB ;
+	wire RX_PERROR_TB ;
+	wire RX_VALID_TB ;
+	//----------------//
+	wire a, b, c, d, e, f, g ;
+	wire AN3 , AN2 , AN1 , AN0 ;
+
+	uart_transmitter uart_tx_tb(.reset(reset_TB), .clk(clk_TB), .Tx_DATA(Tx_DATA_TB), .baud_select(BAUD_SEL_TB), .TX_WR(TX_WR_TB), .TX_EN(TX_EN_TB), .TxD(TxD_TB), .Tx_BUSY(Tx_BUSY_TB));
+	
+	uart_receiver uart_rx_tb(.reset(reset_TB), .clk(clk_TB), .baud_select(BAUD_SEL_TB), .RX_EN(RX_EN_TB), .Rx_DATA(Rx_DATA_TB), .RxD(TxD_TB), .Rx_FERROR(RX_FERROR_TB), .Rx_PERROR(RX_PERROR_TB), .Rx_VALID(RX_VALID_TB)) ;
+	
+	FourDigitLEDdriver FourDigitLEDdriver_tb(.reset(reset_TB), .clk(clk_TB), .Rx_Data(Rx_DATA_TB), .FERROR(RX_FERROR_TB), .PERROR(RX_PERROR_TB), .VALID(RX_VALID_TB), .an3(AN3), .an2(AN2), .an1(AN1), .an0(AN0),
+ .a(a), .b(b), .c(c), .d(d), .e(e), .f(f), .g(g));
+	
+	int i ;
+	
+	always #10 clk_TB = ~clk_TB;
+
+	initial
+	begin
+		BAUD_SEL_TB = 3'b111 ;
+		Tx_DATA_TB = 8'b10101010 ; //I start at t = 0 , transmitting 'FF'
+		clk_TB = 1'b0 ;
+		reset_TB = 1'b1 ;
+		#10
+		reset_TB = 1'b0 ;
+		#10
+		TX_EN_TB = 1'b1 ;
+		RX_EN_TB = 1'b1 ;
+		#1000
+		TX_WR_TB = 1'b1 ; 
+		#95040 //I send 'FF' for 11*T where T = 1/baud rate
+		
+		//At this point in time D4 = [OFF] , D3 = [OFF] , D2 = 'F' , D1 = 'F'	
+
+ 		#95040 //I send 'FF' for another 11*T , I have sent up until this point 'FFFF' 
+
+		//At this point in time D4 = 'F' , D3 = 'F' , D2 = 'F' , D1 = 'F'	
+		
+		// i wanna display 1234
+
+		TX_WR_TB = 1'b0 ;
+		Tx_DATA_TB = 8'b00010010 ; //I change inputs Tx_DATA_TB and TX_WR_TB to send '12' according to the protocol I have established between Transmitter and Sensors
+		#10000
+		TX_WR_TB = 1'b1 ;
+		#95040
+
+		//At this point in time D4 = 'F' , D3 = 'F' , D2 = '1' , D1 = '2'	
+
+		TX_WR_TB = 1'b0 ;
+		Tx_DATA_TB = 8'b00110100 ; //I change inputs Tx_DATA_TB and TX_WR_TB to send '34' according to the protocol I have established between Transmitter and Sensors
+		#10000
+		TX_WR_TB = 1'b1 ;
+		#95040
+
+		//At this point in time D4 = '1' , D3 = '2' , D2 = '3' , D1 = '4'	
+
+		TX_WR_TB = 1'b0 ;  // I have transmitted the message I wanted to transmitt so I stop Transmitting
+		Tx_DATA_TB = 8'hFF ;
+	end
+
+endmodule

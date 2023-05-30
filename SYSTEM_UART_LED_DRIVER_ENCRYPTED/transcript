@@ -1,0 +1,35 @@
+# Compile of UART_Parity_Checker.v was successful.
+# Compile of UART_Baud_Controller.v was successful.
+# Compile of UART_Transmitter.v was successful.
+# Compile of UART_Receiver.v was successful.
+# Compile of LED_Decoder.v was successful.
+# Compile of LED_Driver.v was successful.
+# Compile of UART_Encryption.v was successful.
+# Compile of SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v was successful with warnings.
+# 8 compiles, 0 failed with no errors.
+vsim -gui work.baud_controller work.FourDigitLEDdriver work.LEDdecoder work.uart_encryption work.UART_LED_DRIVER_System_TB work.UART_PChecker work.uart_receiver work.uart_transmitter -voptargs=+acc
+# vsim -gui work.baud_controller work.FourDigitLEDdriver work.LEDdecoder work.uart_encryption work.UART_LED_DRIVER_System_TB work.UART_PChecker work.uart_receiver work.uart_transmitter -voptargs="+acc" 
+# Start time: 00:29:21 on Jan 28,2023
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading sv_std.std
+# Loading work.baud_controller(fast)
+# Loading work.FourDigitLEDdriver(fast)
+# Loading work.LEDdecoder(fast__1)
+# Loading work.LEDdecoder(fast)
+# Loading work.uart_encryption(fast)
+# Loading work.UART_LED_DRIVER_System_TB(fast)
+# Loading work.uart_transmitter(fast__1)
+# Loading work.baud_controller(fast__2)
+# Loading work.UART_PChecker(fast__1)
+# Loading work.uart_encryption(fast__1)
+# Loading work.uart_receiver(fast__1)
+# Loading work.FourDigitLEDdriver(fast__1)
+# Loading work.UART_PChecker(fast)
+# Loading work.uart_receiver(fast)
+# Loading work.baud_controller(fast__1)
+# Loading work.uart_transmitter(fast)
+add dataflow -r /*
+# Printing 1 page to 'Microsoft Print to PDF'
+quit -sim
+# End time: 01:04:16 on Jan 28,2023, Elapsed time: 0:34:55
+# Errors: 0, Warnings: 2

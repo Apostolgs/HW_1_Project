@@ -1,0 +1,83 @@
+{E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/UART_Receiver.v} {1 {vlog -work work -vopt -sv -stats=none {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/UART_Receiver.v}
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module UART_PChecker
+-- Compiling module baud_controller
+-- Compiling module uart_encryption
+-- Compiling module uart_receiver
+
+Top level modules:
+	uart_receiver
+
+} {} {}} {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/UART_Parity_Checker.v} {1 {vlog -work work -vopt -sv -stats=none {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/UART_Parity_Checker.v}
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module UART_PChecker
+
+Top level modules:
+	UART_PChecker
+
+} {} {}} {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/LED_Driver.v} {1 {vlog -work work -vopt -sv -stats=none {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/LED_Driver.v}
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module LEDdecoder
+-- Compiling module FourDigitLEDdriver
+
+Top level modules:
+	FourDigitLEDdriver
+
+} {} {}} {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/UART_Transmitter.v} {1 {vlog -work work -vopt -sv -stats=none {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/UART_Transmitter.v}
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module UART_PChecker
+-- Compiling module baud_controller
+-- Compiling module uart_encryption
+-- Compiling module uart_transmitter
+
+Top level modules:
+	uart_transmitter
+
+} {} {}} {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v} {2 {vlog -work work -vopt -sv -stats=none {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v}
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module UART_PChecker
+-- Compiling module baud_controller
+-- Compiling module uart_encryption
+-- Compiling module uart_transmitter
+-- Compiling module UART_PChecker
+** Warning: ** while parsing file included at E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v(3)
+** while parsing file included at UART_Receiver.v(2)
+** at UART_Parity_Checker.v(3): (vlog-2275) Existing module 'UART_PChecker' at line 3 will be overwritten.
+-- Compiling module baud_controller
+** Warning: ** while parsing file included at E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v(3)
+** while parsing file included at UART_Receiver.v(3)
+** at UART_Baud_Controller.v(26): (vlog-2275) Existing module 'baud_controller' at line 26 will be overwritten.
+-- Compiling module uart_encryption
+** Warning: ** while parsing file included at E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/SYSTEM_UART_LED_DRIVER_ENCRYPTED_TB.v(3)
+** while parsing file included at UART_Receiver.v(4)
+** at UART_Encryption.v(3): (vlog-2275) Existing module 'uart_encryption' at line 3 will be overwritten.
+-- Compiling module uart_receiver
+-- Compiling module LEDdecoder
+-- Compiling module FourDigitLEDdriver
+-- Compiling module UART_LED_DRIVER_System_TB
+
+Top level modules:
+	UART_LED_DRIVER_System_TB
+
+} {} {}} {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/UART_Baud_Controller.v} {1 {vlog -work work -vopt -sv -stats=none {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/UART_Baud_Controller.v}
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module baud_controller
+
+Top level modules:
+	baud_controller
+
+} {} {}} {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/LED_Decoder.v} {1 {vlog -work work -vopt -sv -stats=none {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/LED_Decoder.v}
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module LEDdecoder
+
+Top level modules:
+	LEDdecoder
+
+} {} {}} {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/UART_Encryption.v} {1 {vlog -work work -vopt -sv -stats=none {E:/Documents/Quartus Projects/SYSTEM_UART_LED_DRIVER_ENCRYPTED/UART_Encryption.v}
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module uart_encryption
+
+Top level modules:
+	uart_encryption
+
+} {} {}}

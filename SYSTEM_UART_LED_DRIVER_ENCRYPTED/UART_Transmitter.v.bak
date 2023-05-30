@@ -1,0 +1,203 @@
+`timescale 1ns/1ps
+`include "UART_Parity_Checker.v"
+`include "UART_Baud_Controller.v"
+`include "UART_Encryption.v"
+
+module uart_transmitter(reset, clk, Tx_DATA, baud_select, TX_WR, TX_EN, TxD, Tx_BUSY);
+	input clk, reset;
+	input [7:0] Tx_DATA;
+	input [2:0] baud_select;
+	input TX_EN;
+	input TX_WR;
+	output reg TxD;
+	output reg Tx_BUSY;
+  	//----------------//
+	reg tx_baud_enable;
+	reg [7:0] Tx_ENCR_DATA ;
+	//----------------//
+  	baud_controller baud_controller_tx_instance(reset, clk, tx_baud_enable, baud_select, Tx_sample_ENABLE);
+	UART_PChecker tx_pchecker_instance( Tx_ENCR_DATA, tx_parity_bit);
+	uart_encryption uart_encryption_rx_instance(.DATA_IN(Tx_DATA) , .key(baud_select), .DATA_OUT(Tx_ENCR_DATA));
+  	//----------------//
+  	reg [3:0] T_CNT ; // counts 16x sample_ENABLE = T
+	reg [3:0] ACTIVE_CNT ; // Counts 11x T , the time our transmitter will be transmitting from start to stop bit
+	reg [1:0] current_state ; 
+	reg [1:0] next_state ;
+	//----------------//
+	// Our 2 states of Transmitter FSM 
+	parameter IDLE = 2'b00 ;
+	parameter ACTIVE = 2'b01 ;
+	//----------------//
+	//Counter that counts 1/Baud Rate = T
+  	always @ (posedge clk or reset or TX_WR)
+  	begin 
+		if (reset || TX_WR != 1'b1) 
+        	begin	
+			T_CNT <= 4'b0000 ;
+		end
+    		else if (T_CNT == 4'b1111 && Tx_sample_ENABLE)
+      		begin
+              		T_CNT <= 4'b0000 ;
+            	end
+		else if (Tx_sample_ENABLE)
+		begin
+			T_CNT <= T_CNT + 1;
+    		end
+	end
+	//----------------//
+  	// once enabled, our transmitter , will be active for 11xT
+  	always @ (T_CNT or reset or TX_WR or TX_EN)
+    		begin : COUNTER_11x_T
+              	if (reset || !TX_WR) 
+			begin
+      		  		ACTIVE_CNT <= 4'b0000 ;
+			end
+              	else if (ACTIVE_CNT == 4'b1010 && T_CNT == 4'b1111)
+			begin
+        			ACTIVE_CNT <= 4'b0000 ;
+			end
+     		else if (T_CNT == 4'b1111 )
+			begin
+				ACTIVE_CNT <= ACTIVE_CNT + 1 ;
+			end
+    		end			
+ 	//----------------//
+  	always @ (posedge clk or reset) // active high reset
+    		begin : STATE_MEMORY //4 states , one is idle, and one is Transmit
+      		if (reset) 
+        		current_state <= IDLE ;
+      		else 
+        		current_state <= next_state ;
+    		end
+  	//----------------//
+  	always @ (current_state or TX_EN or TX_WR or baud_select or Tx_DATA or ACTIVE_CNT)
+    	begin : NEXT_STATE_LOGIC
+          	case(current_state)
+            	IDLE :
+                  	begin
+    			tx_baud_enable = 1'b0 ;                 	
+			if (TX_EN)
+                        	begin
+                              	next_state = ACTIVE ;
+                            end
+                      	else
+                        	begin
+                              	next_state = IDLE ;
+                            end
+                    end
+              	ACTIVE :
+                  	begin
+    			tx_baud_enable = 1'b0 ;
+			if (!TX_EN)
+			begin	
+				next_state = IDLE ;
+			end                  	
+			if (TX_WR)
+                        	begin                  	
+				tx_baud_enable = 1'b1 ;
+				if (ACTIVE_CNT == 4'b1011)
+                              		begin
+	                			tx_baud_enable = 1'b0 ;                  	
+						next_state = IDLE ;
+                                    	end                   
+				else
+              				begin
+						tx_baud_enable = 1'b1 ;
+                                      		next_state = ACTIVE ;
+                                    	end
+                            	end
+                    end
+              	default : 
+                	begin
+    			        tx_baud_enable = 1'b0 ;         	
+				next_state = IDLE ;
+                    	end
+            endcase
+        end
+  	//----------------//
+  	always@(current_state or TX_EN or TX_WR or ACTIVE_CNT)
+    	begin : OUTPUT_LOGIC
+          	case(current_state)
+                  	IDLE :
+                  		begin
+                          	TxD = 1'b1 ;
+                          	Tx_BUSY = 1'b0 ;
+                        	end
+                  	ACTIVE :
+                  		begin
+                          		if (TX_WR)
+                            		begin
+                                  		case(ACTIVE_CNT)
+                                    		4'b0000 : //START
+                                     	   	begin
+                                    		      	TxD = 1'b0 ;
+                                    			Tx_BUSY = 1'b1;
+                                        	end
+                                    		4'b1001 : //PARITY
+                                        	begin
+                                        	  	TxD = tx_parity_bit ;
+                                        	  	Tx_BUSY = 1'b1 ;
+                                        	end
+						4'b1010 : //STOP
+                                        	begin
+                                         	 	TxD = 1'b1 ;
+                                        	  	Tx_BUSY = 1'b0 ;
+                                        	end
+                                    		4'b0001 :
+                                        	begin
+                                        	  	TxD = Tx_ENCR_DATA[0] ;
+							Tx_BUSY = 1'b1 ;
+                                        	end 
+                                    		4'b0010 :
+                                        	begin
+                                        	  	TxD = Tx_ENCR_DATA[1] ;
+							Tx_BUSY = 1'b1 ;
+                                        	end
+                                    		4'b0011 :
+                                        	begin
+                                        	  	TxD = Tx_ENCR_DATA[2] ;
+							Tx_BUSY = 1'b1 ;
+                                        	end
+                                    		4'b0100 :
+                                        	begin
+                                        	  	TxD = Tx_ENCR_DATA[3] ;
+							Tx_BUSY = 1'b1 ;
+                                        	end
+                                    		4'b0101 :
+                                        	begin
+                                        	  	TxD = Tx_ENCR_DATA[4] ;
+							Tx_BUSY = 1'b1 ;
+                                        	end
+                                    		4'b0110 :
+                                        	begin
+                                        	  	TxD = Tx_ENCR_DATA[5] ;
+							Tx_BUSY = 1'b1 ;
+                                        	end
+                                    		4'b0111 :
+                                        	begin
+                                        	  	TxD = Tx_ENCR_DATA[6] ;
+							Tx_BUSY = 1'b1 ;
+                                        	end
+                                    		4'b1000 :
+                                        	begin
+                                        	  	TxD = Tx_ENCR_DATA[7] ;
+							Tx_BUSY = 1'b1 ;
+                                        	end
+                                  		endcase
+                                	end
+					else 
+					begin
+						TxD = 1'b1 ;
+						Tx_BUSY = 1'b0 ;
+					end
+                        	end
+                  	default : 
+                  		begin
+                    			TxD = 1'b1 ;
+                   			Tx_BUSY = 1'b0;	
+               			end
+          	endcase
+        end
+endmodule						
+  
+  	
